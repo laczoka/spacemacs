@@ -10,7 +10,8 @@
     ggtags
     helm-gtags
     popwin
-    smartparens
+    ;;smartparens
+    paredit
     subword
     org
     ))
@@ -272,11 +273,11 @@
     (push '("*cider-doc*" :dedicated t :position bottom :stick t :noselect nil :height 0.4)
           popwin:special-display-config)))
 
-(defun clojure/post-init-smartparens ()
-  (add-hook 'cider-repl-mode-hook
-            (if dotspacemacs-smartparens-strict-mode
-                #'smartparens-strict-mode
-              #'smartparens-mode)))
+;; (defun clojure/post-init-smartparens ()
+;;   (add-hook 'cider-repl-mode-hook
+;;             (if dotspacemacs-smartparens-strict-mode
+;;                 #'smartparens-strict-mode
+;;               #'smartparens-mode)))
 
 (defun clojure/post-init-subword ()
   (add-hook 'cider-mode-hook 'subword-mode))
@@ -301,3 +302,8 @@
   (spacemacs|use-package-add-hook org
     :post-config (add-to-list 'org-babel-load-languages '(clojure . t))
     (setq org-babel-clojure-backend 'cider)))
+
+(defun clojure/post-init-paredit ()
+  (add-hook 'clojure-mode-hook #'paredit-mode)
+  (add-hook 'cider-repl-mode-hook #'paredit-mode))
+
